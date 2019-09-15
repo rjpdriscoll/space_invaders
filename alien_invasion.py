@@ -1,3 +1,0 @@
-#space invader game
-
-#comment
