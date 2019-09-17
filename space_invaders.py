@@ -8,7 +8,7 @@ from button import Button
 from ship import Ship
 from bullet import Bullet
 from alien import Alien
-
+filename = 'high_score.txt'
 
 class SpaceInvaders:
     # Overall class to manage game assets and behavior.
@@ -28,7 +28,6 @@ class SpaceInvaders:
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
-
         self._create_fleet()
 
         # Set the background color.
@@ -37,6 +36,7 @@ class SpaceInvaders:
         # Make the Play button.
         self.play_button = Button(self, "Play")
 
+        
     def run_game(self):
         # Start the main loop for the game
         while True:

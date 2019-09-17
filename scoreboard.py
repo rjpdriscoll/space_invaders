@@ -1,6 +1,7 @@
 import pygame.font
 from pygame.sprite import Group
 from ship import Ship
+filename = 'high_score.txt'
 
 class Scoreboard:
     # A class to report the scoring information.
@@ -54,10 +55,15 @@ class Scoreboard:
         self.level_rect.top = self.score_rect.bottom + 10
 
     def prep_high_score(self):
+        # Check for high score
+        with open(filename, 'r') as read_high_score:
+            self.stats.high_score = int(read_high_score.read())
+
         # Turn the high score into a rendered image.
         high_score = round(self.stats.high_score, -1)
         high_score_str = "{:,}".format(high_score)
         self.high_score_image = self.font.render("High Score: " + high_score_str, True, self.text_color, self.settings.bg_color)
+        
 
         # Center the high score at the top of the screen.
         self.high_score_rect = self.high_score_image.get_rect()
@@ -68,6 +74,8 @@ class Scoreboard:
         # Check to see if there is a new high score.
         if self.stats.score > self.stats.high_score:
             self.stats.high_score = self.stats.score
+            with open(filename, 'w') as write_high_score:
+                write_high_score.write(str(self.stats.high_score))
             self.prep_high_score()
 
     def show_score(self):
